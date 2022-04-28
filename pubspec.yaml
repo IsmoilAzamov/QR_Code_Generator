@@ -18,6 +18,10 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   qr_flutter: ^4.0.0
+  screenshot: ^1.2.3
+  image_gallery_saver: ^1.7.1
+
+
 
 
 dev_dependencies:
