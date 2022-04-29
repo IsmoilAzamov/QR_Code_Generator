@@ -1,4 +1,5 @@
 import 'package:dictionary/screens/qr_generator_page.dart';
+import 'package:dictionary/screens/qr_scanner_page.dart';
 import 'package:dictionary/style/style.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width * 0.45,
                   child: GestureDetector(
                     onTap: (){
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHome()));
                                   },
                     child: Column(
                       children: [

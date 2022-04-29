@@ -20,6 +20,9 @@ dependencies:
   qr_flutter: ^4.0.0
   screenshot: ^1.2.3
   image_gallery_saver: ^1.7.1
+  qr_code_scanner: ^0.7.0
+  adaptive_dialog: ^1.6.1
+  fluttertoast: ^8.0.9
 
 
 
