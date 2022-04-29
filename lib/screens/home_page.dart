@@ -1,14 +1,6 @@
-import 'dart:typed_data';
-
+import 'package:dictionary/screens/qr_generator_page.dart';
 import 'package:dictionary/style/style.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-
-import 'package:screenshot/screenshot.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-
-
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,100 +10,87 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String data = "";
-
-   ScreenshotController screenshotController=ScreenshotController();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      backgroundColor: AppStyle.primaryColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-           Screenshot(
-             controller: screenshotController,
-             child: Center(
-              child: QrImage(
+      child: Scaffold(
+        backgroundColor: AppStyle.primaryColor,
 
-                data: data,
-                backgroundColor: Colors.white,
-                size: 300,
-                version: QrVersions.auto,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
 
-              ),
-          ),
-
-           ),
-          const SizedBox(
-            height: 24,
-          ),
-
-          SizedBox(
-            width: 300,
-            child:  TextField(
-              onChanged: (value){
-                setState(() {
-                  data=value;
-                });
-              },
-              textAlign: TextAlign.center,
-              decoration: const InputDecoration(
-
-                  hintText: "Enter Your Link",
-                  focusColor: Colors.white,
-                  hoverColor: Colors.white,
-                  filled: true,
-                  fillColor: Colors.white),
-              style: const  TextStyle(
-                color: Colors.blue,
-                fontSize: 21,
-                fontWeight: FontWeight.w400,
-              ),
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  decoration: BoxDecoration(color: Colors.black26, 
+                  borderRadius: BorderRadius.circular(50)),
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  child: GestureDetector(
+                    onTap: (){
+                                  },
+                    child: Column(
+                      children: [
+                       Image.asset('assets/img.png'),
+                        const SizedBox(
+                          height: 0,
+                        ),
+                        const Text(
+                          "Scan ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey,
+                      borderRadius: BorderRadius.circular(50)
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.42,
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const GeneratorPage()),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Image.asset('assets/qrcode.png'),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const Text(
+                          "Generate ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
-          ),
-          const SizedBox(height: 24,),
-          RawMaterialButton(onPressed: (){
-            screenshotController
-                .capture(delay: const Duration(milliseconds: 10))
-                .then((capturedImage) async {
-              showCapturedWidget(context, capturedImage!);
-            }).catchError((onError) {
-
-            });
-
-          },
-          fillColor: AppStyle.accentColor,
-          shape:  const StadiumBorder(),
-          padding: const EdgeInsets.symmetric(horizontal: 66, vertical: 26),
-          child: const Text("Share QR Code", style: TextStyle(
-            fontSize: 24,
-            color: Colors.white, fontWeight: FontWeight.bold,
-          ),),)
-        ],
+          ],
+        ),
       ),
-    ));
-
+    );
   }
-  Future<dynamic> showCapturedWidget(
-      BuildContext context, Uint8List capturedImage) async{
-    return _saved(capturedImage);
-  }
-
-
-
-  _saved(Uint8List image) async {
-    final result = await ImageGallerySaver.saveImage(image);
-
-  }
-
-
 }
-
-
-
-
-
-
