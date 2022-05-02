@@ -1,12 +1,11 @@
-//import 'package:dictionary/style/style.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 import 'dart:developer';
 import 'dart:io';
+
 
 import 'package:dictionary/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void main() => runApp(const MaterialApp(home: MyHome()));
 
@@ -15,7 +14,7 @@ class MyHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return QRViewExample();
+    return const QRViewExample();
   }
 }
 
@@ -27,18 +26,17 @@ class QRViewExample extends StatefulWidget {
 }
 
 class _QRViewExampleState extends State<QRViewExample> {
-  Icon cameraIcon = Icon(
+  Icon cameraIcon = const Icon(
     Icons.camera_alt_outlined,
     size: 35,
   );
-  Icon pauseIcon = Icon(
+  Icon pauseIcon = const Icon(
     Icons.pause,
     size: 35,
   );
   Color a = Colors.white;
   Color b = Colors.white;
   Color c = Colors.white;
-
 
   Barcode? result;
   bool isplayingCamera = false;
@@ -56,19 +54,30 @@ class _QRViewExampleState extends State<QRViewExample> {
     controller!.resumeCamera();
   }
 
-  void buildResult()=>Fluttertoast.showToast(
-      msg: "Bu Toast",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0
-  );
+  Widget showResult() => GestureDetector(
+    child: Container(
+      alignment: Alignment.center,
 
-  Widget showResult()=>Text(
-    result!=null?'${result!.code  }':'Scanning code...',
-    maxLines: 3,
+
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        color: Colors.blue
+      ),
+      //color: AppStyle.accentColor,
+      padding: const EdgeInsets.all(11),
+      child: Text(
+            result != null ? '${result!.code}' : 'Scanning code...',textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.greenAccent, fontSize: 16),
+            maxLines: 15,
+
+          ),
+    ),
+    onTap: (){
+      setState(() {
+        launchUrlString('${result!.code}');
+      });
+
+    },
   );
 
   @override
@@ -76,10 +85,23 @@ class _QRViewExampleState extends State<QRViewExample> {
     return Scaffold(
       backgroundColor: AppStyle.primaryColor,
       body: Column(
+
         children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
-         
-         //777777777777777777777777777777777777777777777777777777777777777777777
+          Expanded(flex: 4, child: Stack(
+            children: [
+              _buildQrView(context),
+
+
+         Positioned(bottom: 30,child: GestureDetector(child: Center(child:showResult(), ),
+             onTap: (){
+               setState(() {
+                 launchUrlString('${result!.code}');
+               }
+               );})  )
+            ],
+          )),
+
+          //777777777777777777777777777777777777777777777777777777777777777777777//
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -87,7 +109,7 @@ class _QRViewExampleState extends State<QRViewExample> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Positioned(bottom:30, child: showResult()),
+
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -99,15 +121,23 @@ class _QRViewExampleState extends State<QRViewExample> {
                             onTap: () async {
                               await controller?.toggleFlash();
                               setState(() {
-                                if(c==Colors.white)c=Colors.yellowAccent;
-                                else c=Colors.white;
+                                if (c == Colors.white) {
+                                  c = Colors.yellowAccent;
+                                } else {
+                                  c = Colors.white;
+                                }
                               });
                             },
                             child: FutureBuilder(
                               future: controller?.getFlashStatus(),
                               builder: (context, snapshot) {
-                                return CircleAvatar(radius: 25,
-                                  child: Icon(Icons.flash_on_outlined, color: c,size: 35,),
+                                return CircleAvatar(
+                                  radius: 25,
+                                  child: Icon(
+                                    Icons.flash_on_outlined,
+                                    color: c,
+                                    size: 35,
+                                  ),
                                 );
                               },
                             )),
@@ -118,10 +148,11 @@ class _QRViewExampleState extends State<QRViewExample> {
                             onTap: () async {
                               await controller?.flipCamera();
                               setState(() {
-                                if (a == Colors.white)
+                                if (a == Colors.white) {
                                   a = Colors.green;
-                                else
+                                } else {
                                   a = Colors.white;
+                                }
                               });
                             },
                             child: FutureBuilder(
@@ -158,10 +189,10 @@ class _QRViewExampleState extends State<QRViewExample> {
                             setState(() {
                               if (b == Colors.white) {
                                 b = Colors.red;
-                              } else
+                              } else {
                                 b = Colors.white;
+                              }
                             });
-                            buildResult();
                           },
                           child: CircleAvatar(
                             radius: 25,
@@ -175,7 +206,6 @@ class _QRViewExampleState extends State<QRViewExample> {
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -208,7 +238,6 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _onQRViewCreated(QRViewController controller) {
-
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
@@ -216,9 +245,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     });
     setState(() {
       this.controller = controller;
-
     });
-
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {

@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:dictionary/models/my_toast.dart';
 import 'package:dictionary/style/style.dart';
 import 'package:flutter/material.dart';
+
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:screenshot/screenshot.dart';
@@ -74,7 +76,7 @@ class _GeneratorPageState extends State<GeneratorPage> {
               ),
               const SizedBox(height: 24,),
               RawMaterialButton(onPressed: (){
-
+                  myToast("Photo Saved To Gallery");
                 screenshotController
                     .capture(delay: const Duration(milliseconds: 10))
                     .then((capturedImage) async {

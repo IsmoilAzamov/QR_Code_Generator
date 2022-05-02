@@ -23,6 +23,7 @@ dependencies:
   qr_code_scanner: ^0.7.0
   adaptive_dialog: ^1.6.1
   fluttertoast: ^8.0.9
+  url_launcher: ^6.1.0
 
 
 
