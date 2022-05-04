@@ -1,13 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
-
-
 import 'package:dictionary/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+
 
 
 
@@ -38,7 +35,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     Icons.pause,
     size: 35,
   );
-  LaunchMode mode=LaunchMode.externalNonBrowserApplication;
+
   Color a = Colors.white;
   Color b = Colors.white;
   Color c = Colors.white;

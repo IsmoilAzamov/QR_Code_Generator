@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dictionary">
+    package="uz.azamof.qrgenerator">
 
 
     <application
 
-        android:label="dictionary"
+        android:label="QR Generator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         >

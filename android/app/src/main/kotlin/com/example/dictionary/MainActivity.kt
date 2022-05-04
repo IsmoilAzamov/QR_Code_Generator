@@ -1,4 +1,4 @@
-package com.example.dictionary
+package uz.azamof.qrgenerator
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -88,11 +88,22 @@ class _GeneratorPageState extends State<GeneratorPage> {
               },
                 fillColor: AppStyle.accentColor,
                 shape:  const StadiumBorder(),
-                padding: const EdgeInsets.symmetric(horizontal: 66, vertical: 26),
-                child: const Text("Share QR Code", style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white, fontWeight: FontWeight.bold,
-                ),),)
+                padding: const EdgeInsets.symmetric(horizontal: 46, vertical: 16),
+                child:  Row(
+
+                  mainAxisSize: MainAxisSize.min,
+
+                  children: const [
+                     Text("Save QR Code", style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white, fontWeight: FontWeight.bold,
+                    ),),
+                    SizedBox(width: 15,),
+
+                    Icon(Icons.save_alt_rounded, color: Colors.white,size: 35,)
+
+                  ],
+                ),)
             ],
           ),
         ));

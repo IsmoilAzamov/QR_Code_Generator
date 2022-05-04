@@ -57,10 +57,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.blueGrey,
+                    color: Colors.black26,
                       borderRadius: BorderRadius.circular(50)
                   ),
-                  width: MediaQuery.of(context).size.width * 0.42,
+                  width: MediaQuery.of(context).size.width * 0.45,
                   child: GestureDetector(
                     onTap: (){
                       Navigator.push(
@@ -71,9 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: [
                         Image.asset('assets/qrcode.png'),
-                        const SizedBox(
-                          height: 12,
-                        ),
+
                         const Text(
                           "Generate ",
                           style: TextStyle(
@@ -84,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 12,
                         ),
+
                       ],
                     ),
                   ),
