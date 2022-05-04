@@ -24,6 +24,8 @@ dependencies:
   adaptive_dialog: ^1.6.1
   fluttertoast: ^8.0.9
   url_launcher: ^6.1.0
+  webview_flutter: ^3.0.2
+  flutter_web_browser: ^0.17.1
 
 
 

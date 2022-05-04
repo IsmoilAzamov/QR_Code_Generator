@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width * 0.45,
                   child: GestureDetector(
                     onTap: (){
-                     Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHome()));
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=>const MyHome()));
                                   },
                     child: Column(
                       children: [

@@ -1,11 +1,15 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
 
 
 import 'package:dictionary/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+
 
 void main() => runApp(const MaterialApp(home: MyHome()));
 
@@ -34,9 +38,12 @@ class _QRViewExampleState extends State<QRViewExample> {
     Icons.pause,
     size: 35,
   );
+  LaunchMode mode=LaunchMode.externalNonBrowserApplication;
   Color a = Colors.white;
   Color b = Colors.white;
   Color c = Colors.white;
+String url='';
+
 
   Barcode? result;
   bool isplayingCamera = false;
@@ -72,12 +79,7 @@ class _QRViewExampleState extends State<QRViewExample> {
 
           ),
     ),
-    onTap: (){
-      setState(() {
-        launchUrlString('${result!.code}');
-      });
 
-    },
   );
 
   @override
@@ -92,12 +94,24 @@ class _QRViewExampleState extends State<QRViewExample> {
               _buildQrView(context),
 
 
-         Positioned(bottom: 30,child: GestureDetector(child: Center(child:showResult(), ),
+         Positioned(bottom: 30,child: GestureDetector(
+             child: Center(child:showResult(), ),
              onTap: (){
-               setState(() {
-                 launchUrlString('${result!.code}');
-               }
-               );})  )
+         setState(() {
+        //launchUrlString('${result!.code}', );
+           url=result!.code.toString();
+           {
+             if(url.startsWith('https://') || url.startsWith('http://')){
+
+             }
+             else{
+               url='https://'+url;
+             }
+           }
+          FlutterWebBrowser.openWebPage(url: url);
+
+         });
+         })  )
             ],
           )),
 
@@ -262,4 +276,5 @@ class _QRViewExampleState extends State<QRViewExample> {
     controller?.dispose();
     super.dispose();
   }
+
 }
